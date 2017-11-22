@@ -1,0 +1,5 @@
+<%= @status %>
+<%= form_tag(upload_logs_centralised_log_index_path, :method => :post, :action => :create) do%>
+	<%= file_field_tag :myfile, :required => true %>
+	<%= button_tag :submit %>
+<% end %>

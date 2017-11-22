@@ -1,0 +1,29 @@
+development:
+  adapter: mysql2
+  host: "localhost"
+  port: 3306
+  username: "root"
+  password: ""
+  database: logs
+  charset: utf8
+  collation: utf8_bin
+
+staging:
+  adapter: mysql2
+  host: "localhost"
+  port: 3306
+  username: "root"
+  password: ""
+  database: logs
+  charset: utf8
+  collation: utf8_bin
+
+production:
+  adapter: mysql2
+  host: "localhost"
+  port: 3306
+  username: "root"
+  password: ""
+  database: logs
+  charset: utf8
+  collation: utf8_bin
