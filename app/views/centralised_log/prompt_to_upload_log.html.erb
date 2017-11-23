@@ -1,5 +1,4 @@
-<%= @status %>
-<%= form_tag(upload_logs_centralised_log_index_path, :method => :post, :action => :create) do%>
-	<%= file_field_tag :myfile, :required => true %>
-	<%= button_tag :submit %>
+<%= form_tag({:action => :upload_logs}, multipart: true) do %>
+  <%= file_field_tag :myfile %>
+  <%= submit_tag( "Import" ) %>
 <% end %>

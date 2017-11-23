@@ -3,14 +3,10 @@ class CentralisedLogController < ApplicationController
 	include CentralisedLogHelper
 
 	def upload_logs
-		log_file=(params[:myfile])
-		puts log_file.class
-		log_file=File.new(params[:myfile])
-		puts log_file.class
-		csv_file="#{log_file}.csv"
-		import_logs_to_csv(log_file,csv_file)
-		@status = "File uploaded successfully!"
-		redirect_to '/centralised_log/prompt_to_upload_log'
+		log_file=params[:myfile].path
+		puts log_file
+		import_logs_to_csv(log_file)
+		redirect_to '/centralised_log/prompt_to_upload_log' , :notice => "File uploaded successfully!"
 	end
 
 	def prompt_to_upload_log

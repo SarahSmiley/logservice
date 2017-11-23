@@ -15,6 +15,7 @@
 /log/*
 /tmp/*
 *.csv
+*.log
 !/log/.keep
 !/tmp/.keep
 

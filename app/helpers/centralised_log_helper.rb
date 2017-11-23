@@ -1,9 +1,8 @@
 module CentralisedLogHelper
 	require 'csv'
-	def import_logs_to_csv(log_file,csv_file)
+	def import_logs_to_csv(log_file)
 		puts log_file
-		puts csv_file
-		File.open(csv_file, "w") do |csv|
+		File.open("/tmp/temporary_csvfile", "w") do |csv|
 			File.open(log_file, "r") do |f|
 				f.each_line do |line|
 				line = line.gsub(/[()""+-]/, '')
@@ -14,7 +13,8 @@ module CentralisedLogHelper
 				end
 			end
 		end
-		insert_csv_to_db(csv_file)
+		File.delete(log_file)
+		insert_csv_to_db("/tmp/temporary_csvfile")
 	end
 
 	def insert_csv_to_db(csv_file)
@@ -33,5 +33,6 @@ module CentralisedLogHelper
                 :request_detail3    => row[8]
             )
         end
+        File.delete(csv_file)
 	end
 end
