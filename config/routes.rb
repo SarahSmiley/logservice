@@ -3,5 +3,6 @@ Rails.application.routes.draw do
   resources :centralised_log do
  	get :prompt_to_upload_log, :on => :collection
  	post :upload_logs, :on => :collection
+ 	get :querying_logs, :on => :collection
   end
 end
