@@ -1,8 +1,11 @@
 module CentralisedLogHelper
 	require 'csv'
+	require 'fileutils'
 	def import_logs_to_csv(log_file)
 		puts log_file
-		File.open("/tmp/temporary_csvfile", "w") do |csv|
+		old_csv='./tmp/temporary_old_csvfile'
+		new_csv='./tmp/temporary_new_csvfile'
+		File.open(new_csv, "w") do |csv|
 			File.open(log_file, "r") do |f|
 				f.each_line do |line|
 				line = line.gsub(/[()""+-]/, '')
@@ -13,14 +16,21 @@ module CentralisedLogHelper
 				end
 			end
 		end
-		#File.delete(log_file)
-		insert_csv_to_db("/tmp/temporary_csvfile")
+		File.delete(log_file)
+		old_csv_lines=CSV.read(old_csv).length
+		puts old_csv_lines
+		new_csv_lines=CSV.read(new_csv).length
+		puts new_csv_lines
+		insert_csv_to_db(new_csv,old_csv_lines)
+		FileUtils.cp(new_csv,old_csv)
+		File.delete(new_csv)
 	end
 
-	def insert_csv_to_db(csv_file)
+	def insert_csv_to_db(csv_file,skip_line)
+		puts skip_line
 		Rails.logger.debug "exporting in db"
 		log_file = CSV.open(csv_file)
-        log_file.each do |row|
+        log_file.drop(skip_line).each do |row|
             AccessLog.create!(
                 :ip                	=> row[0],
                 :datetime         	=> row[1],
@@ -33,7 +43,6 @@ module CentralisedLogHelper
                 :request_detail3    => row[8]
             )
         end
-       # File.delete(csv_file)
 	end
 
 	def querying_by_selected_column(selected_column,total_count)
@@ -57,7 +66,6 @@ module CentralisedLogHelper
 	end
 
 	def querying_by_search_string(search_string,column_names,starttime,stoptime)
-		@data=0
 		starttime=starttime.to_datetime
 	    stoptime=stoptime.to_datetime
 		puts column_names

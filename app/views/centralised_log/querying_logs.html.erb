@@ -39,7 +39,6 @@
 		@full_data.each do |row| %><br>
 			<div>
 			<% @column_names.each do |column| %> 				
-				<% puts column.class %>
 				<b><%= column%> </b> :  <%= row.send(column) %> <span style="display:inline-block; width: 2%;"></span>
 			<% end %>
 			<hr>

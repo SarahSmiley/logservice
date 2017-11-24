@@ -3,7 +3,7 @@ function show_upload_status(){
 window.alert('File Uploaded Successfully');
 }
 </script>
-<div style="position: centre; centre: 100%; height: 100px; background: pink; padding: 25px; border: 20px solid white"> 
+<div style="position: centre; centre: 100%; height: 100px; background: #FAEBD7; padding: 25px; border: 20px solid white"> 
 	<div style="position: centre; centre: 100%;"> <%= form_tag({:action => :upload_logs}, multipart: true) do %>
 		<% if @status.present? %>
 			<%= @status %>
