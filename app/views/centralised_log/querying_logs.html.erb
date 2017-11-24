@@ -17,25 +17,36 @@
 </div>
 <div name="search_all" style="float: right; width:85%; height:25% ;background: #ffcc99">
 	<div name="search" style="float:left; width:70%; height:100% ; ">
-		<form> SEARCH PHRASE:<input style="width: 80%; background: #FAEBD7"  type="text" name="search_sting"><br>
+		<form style="padding:10px"> SEARCH PHRASE:<input style="width: 80%; background: #FAEBD7"  type="text" name="search_string"><br>
 	  		<input style="float: right" type="submit" value="Search">
 		</form>
 	</div>
 	<div name="time" style="float:right; width:30%; height:50%;">
-		<form> Time picker:<input style="width: 75%; background: #FAEBD7" type="text" name="time"><br>
+		<form style="padding:5px"> Time picker:<input style="width: 75%; background: #FAEBD7" type="text" name="time"><br>
 	  		<input style="float: right" type="submit" value="Select">
 		</form>
 	</div>
 	<div name="sql" style="float:right; width:30%; height:50%;">
-		<form> SQL query:<input style="width: 75%; background: #FAEBD7" type="text" name="sql_query"><br>
+		<form style="padding:5px"> SQL query:<input style="width: 75%; background: #FAEBD7" type="text" name="sql_query"><br>
 	  		<input style="float: right" type="submit" value="Query">
 		</form>
 	</div>
 </div>
 <div name="full_data" style="float: bottom;float: right;width:85%;height:75%;background: #FAEBD7;overflow-x: scroll; overflow-y: scroll;">
 	<% if @sql_records_array.present? 
-		@sql_records_array.each do |p| %><br>
-		<%= p %>
+		@sql_records_array.each do |query_data| %><br>
+		<div><%= query_data%></div>
+		<% end %>
+	<% end %>
+	<% if @full_data.present? 
+		@full_data.each do |row| %><br>
+			<div>
+			<% @column_names.each do |column| %> 				
+				<% puts column.class %>
+				<b><%= column%> </b> :  <%= row.send(column) %> <span style="display:inline-block; width: 2%;"></span>
+			<% end %>
+			<hr>
+			</div>
 		<% end %>
 	<% end %>
 <div>

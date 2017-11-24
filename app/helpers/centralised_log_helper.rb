@@ -55,4 +55,19 @@ module CentralisedLogHelper
 	def querying_directly_by_sql_query(sql_query)
 		@sql_records_array = ActiveRecord::Base.connection.execute(params[:sql_query])
 	end
+
+	def querying_by_search_string(search_string,column_names)
+		@data=0
+		puts column_names
+		@full_data = nil
+		column_names.each do |column|
+			puts column
+			data=AccessLog.where("#{column} like ?",  "%#{search_string}%")
+			if @full_data.present?
+				@full_data=@full_data.or(data)
+			else
+				@full_data=data            	
+           end
+		end
+	end
 end
