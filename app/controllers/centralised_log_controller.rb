@@ -1,5 +1,6 @@
 class CentralisedLogController < ApplicationController
 	#skip_before_filter :verfy_authenticity_token 
+	require 'date'
 	include CentralisedLogHelper
 
 	def upload_logs
@@ -20,12 +21,18 @@ class CentralisedLogController < ApplicationController
 			querying_directly_by_sql_query(params[:sql_query])
 		end
         if params[:search_string].present?
- 		 	querying_by_search_string(params[:search_string],@column_names)
+        	if params[:start_time].nil? || params[:stop_time].nil? 
+        		start_time = DateTime.now - 1.day
+        		stop_time = DateTime.now
+        	else
+        		start_time=params[:start_time]
+        		stop_time=params[:stop_time]
+        	end
+ 		 	querying_by_search_string(params[:search_string],@column_names,start_time,stop_time)
         end
         if params[:selected_column].present?
         	@selected_column=params[:selected_column]
         	querying_by_selected_column(@selected_column,total_count)
         end
 	end
-
 end

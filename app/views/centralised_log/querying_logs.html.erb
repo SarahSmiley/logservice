@@ -16,18 +16,15 @@
     </div>
 </div>
 <div name="search_all" style="float: right; width:85%; height:25% ;background: #ffcc99">
-	<div name="search" style="float:left; width:70%; height:100% ; ">
-		<form style="padding:10px"> SEARCH PHRASE:<input style="width: 80%; background: #FAEBD7"  type="text" name="search_string"><br>
-	  		<input style="float: right" type="submit" value="Search">
+	<div name="search" style="float:left; width:70%; height:50% ; ">
+		<form style="padding:10px"> SEARCH PHRASE :<input style="width: 80%; background: #FAEBD7"  type="text" name="search_string"><br>
+               Start Time :<input style="width: 40%; background: #FAEBD7" type="datetime-local" name="start_time">
+			   Stop Time :<input style="width: 40%; background: #FAEBD7" type="datetime-local" name="stop_time">
+			   <input style="float: right" type="submit" value="Search">
 		</form>
 	</div>
-	<div name="time" style="float:right; width:30%; height:50%;">
-		<form style="padding:5px"> Time picker:<input style="width: 75%; background: #FAEBD7" type="text" name="time"><br>
-	  		<input style="float: right" type="submit" value="Select">
-		</form>
-	</div>
-	<div name="sql" style="float:right; width:30%; height:50%;">
-		<form style="padding:5px"> SQL query:<input style="width: 75%; background: #FAEBD7" type="text" name="sql_query"><br>
+		<div name="sql" style="float:left; width:30%; height:50%;">
+		<form style="padding:10px"> SQL query:<input style="width: 80%; background: #FAEBD7" type="text" name="sql_query"><br>
 	  		<input style="float: right" type="submit" value="Query">
 		</form>
 	</div>

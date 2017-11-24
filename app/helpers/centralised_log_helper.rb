@@ -13,7 +13,7 @@ module CentralisedLogHelper
 				end
 			end
 		end
-		File.delete(log_file)
+		#File.delete(log_file)
 		insert_csv_to_db("/tmp/temporary_csvfile")
 	end
 
@@ -33,7 +33,7 @@ module CentralisedLogHelper
                 :request_detail3    => row[8]
             )
         end
-        File.delete(csv_file)
+       # File.delete(csv_file)
 	end
 
 	def querying_by_selected_column(selected_column,total_count)
@@ -56,13 +56,15 @@ module CentralisedLogHelper
 		@sql_records_array = ActiveRecord::Base.connection.execute(params[:sql_query])
 	end
 
-	def querying_by_search_string(search_string,column_names)
+	def querying_by_search_string(search_string,column_names,starttime,stoptime)
 		@data=0
+		starttime=starttime.to_datetime
+	    stoptime=stoptime.to_datetime
 		puts column_names
 		@full_data = nil
 		column_names.each do |column|
 			puts column
-			data=AccessLog.where("#{column} like ?",  "%#{search_string}%")
+			data=AccessLog.where("#{column} like ?",  "%#{search_string}%").where('updated_at BETWEEN ? AND ?', starttime, stoptime)
 			if @full_data.present?
 				@full_data=@full_data.or(data)
 			else
