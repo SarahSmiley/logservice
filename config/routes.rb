@@ -5,4 +5,6 @@ Rails.application.routes.draw do
  	post :upload_logs, :on => :collection
  	get :querying_logs, :on => :collection
   end
+  
+  match '/', to: redirect('/centralised_log/'), via: :all
 end
