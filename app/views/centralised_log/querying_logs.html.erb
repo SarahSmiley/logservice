@@ -1,19 +1,41 @@
-<div class="sidebar" style="position: fixed;width: 200px;padding 200px ; line-height: 40px;background:  pink;">
-<div> Available Columns </div>
-<% @column_names.each do |column| %>
-	<div> <%= column %> </div>
-<% end %>
+<div><h1 style="text-align: center ; "> Centralised Log Service </h1> </div>
+<div name="sidebar" style="width: 15% ; height: 100%; float:left;">
+	<div name="field" style=" height: 50%; overflow-x: scroll; overflow-y: scroll;padding: 1%;background:  #ffe6f2;">
+		<div><h4> Available Columns </h4></div>
+		<% @column_names.each do |column| %>
+			<div name="column" style= "line-height: 200%"><a href="/centralised_log/querying_logs?selected_column=<%= column %>"><%= column %></a></div>
+		<% end %>
+	</div>
+	<div name="selected_field_data" style=" height: 50%; line-height: 200%; overflow-x: scroll; overflow-y: scroll;float: bottom;padding: 1%;background: #f2f2f2 ;">
+		<div> Max 5 Values for <%=@selected_column %> </div>
+		<%if @percentage_hash.present?
+			@percentage_hash.each do |key,values| %>
+				<div> <%= key %> : <%= values[1] %> <span> &#37;</span> </div>
+			<% end %>
+		<% end %>
+    </div>
 </div>
-<div style="margin : 200px; text-allign : right">
-<form >
-   SQL query: <input type="text" name="sql_query"><br>
-  <input type="submit" value="Query">
-</form>
+<div name="search_all" style="float: right; width:85%; height:25% ;background: #ffcc99">
+	<div name="search" style="float:left; width:70%; height:100% ; ">
+		<form> SEARCH PHRASE:<input style="width: 80%; background: #FAEBD7"  type="text" name="search_sting"><br>
+	  		<input style="float: right" type="submit" value="Search">
+		</form>
+	</div>
+	<div name="time" style="float:right; width:30%; height:50%;">
+		<form> Time picker:<input style="width: 75%; background: #FAEBD7" type="text" name="time"><br>
+	  		<input style="float: right" type="submit" value="Select">
+		</form>
+	</div>
+	<div name="sql" style="float:right; width:30%; height:50%;">
+		<form> SQL query:<input style="width: 75%; background: #FAEBD7" type="text" name="sql_query"><br>
+	  		<input style="float: right" type="submit" value="Query">
+		</form>
+	</div>
 </div>
+<div name="full_data" style="float: bottom;float: right;width:85%;height:75%;background: #FAEBD7;overflow-x: scroll; overflow-y: scroll;">
+	<% if @sql_records_array.present? 
+		@sql_records_array.each do |p| %><br>
+		<%= p %>
+		<% end %>
+	<% end %>
 <div>
-<% if @records_array.present? 
-@records_array.each do |p| %>
-	<%= p %>
-<% end %>
-<% end %>
-</div>

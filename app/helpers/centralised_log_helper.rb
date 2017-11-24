@@ -35,4 +35,24 @@ module CentralisedLogHelper
         end
         File.delete(csv_file)
 	end
+
+	def querying_by_selected_column(selected_column,total_count)
+		@percentage_hash={}
+    	puts total_count
+    	sql_query = "select count(#{selected_column}), #{selected_column} from access_logs group by #{selected_column} order by count(#{selected_column}) desc limit 5;"
+    	records_array = ActiveRecord::Base.connection.execute(sql_query)
+    	records_array.each do |a| 
+    		puts a[0].class
+    		puts total_count
+    		percentage = (a[0]*100/total_count)
+    		puts percentage
+    		puts a.class
+    		@percentage_hash["#{a[1]}"] = [a[0],percentage]
+    	end
+    	puts @percentage_hash
+	end
+
+	def querying_directly_by_sql_query(sql_query)
+		@sql_records_array = ActiveRecord::Base.connection.execute(params[:sql_query])
+	end
 end
